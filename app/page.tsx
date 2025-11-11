@@ -1,9 +1,10 @@
 "use client"
 
-import { Person } from "./components/Person"
+import { Character } from "./components/Character"
 import { HouseIcon } from "@phosphor-icons/react"
 
 export default function Home() {
+
   return (
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans dark:bg-black">
       <header className="bg-red-400 w-full flex justify-center items-center min-h-24">
@@ -13,7 +14,7 @@ export default function Home() {
         <div className="bg-amber-700 flex-1">
           <nav className="menu py-10 mx-7">
             {/* Component menu */}
-            <h2 className="bg-black text-4xl p-4">SÉRIE RICK E MORT</h2>
+            <h2 className="bg-black text-4xl p-4">SÉRIE RICK E MORTY</h2>
             <ul className="bg-emerald-400 text-[25px] list-disc ">
               {/* Aqui a gente precisa trabalha com rotas!! */}
               <li><a className="hover:text-red-950 duration-300 ease-in" href="#">SOBRE A SÉRIE</a></li>
@@ -36,11 +37,11 @@ export default function Home() {
             <h2 className="text-2xl text-pink-600 italic uppercase">Personagens Principais</h2>
               {/* Cada card vai ser um componente, passando props para cada um ter suas caracteristicasa */}
               <div className="flex gap-x-5">
-                <Person />
-                <Person />
-                <Person />
-                <Person />
-                <Person />
+                <Character />
+                <Character />
+                <Character />
+                <Character />
+                <Character />
               </div>               
           </div>
         </div>
