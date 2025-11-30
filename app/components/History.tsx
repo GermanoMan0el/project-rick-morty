@@ -1,9 +1,11 @@
 export function History() {
-
     return(
         <div className="history">
             <span className="text-pink-400 font-bold italic text-[20px]">HISTÓRIA</span>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem quisquam facere quam ducimus repellendus explicabo numquam officia, et, magnam delectus vero. Accusamus, eaque. Aut perferendis nesciunt iste rerum minus. Architecto. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis iusto quae in dignissimos nemo, maxime voluptatibus repellendus sapiente quam commodi maiores aliquam voluptates magnam, velit consequuntur laboriosam sed officiis! Numquam!</p>
+            <p>
+                A série segue as desventuras de <strong className="text-cyan-300">Rick Sanchez</strong>, um cientista cínico e genial, e seu neto de bom coração, mas fretful, <strong className="text-cyan-300">Morty Smith</strong>. 
+                Dividindo seu tempo entre a vida doméstica e viagens interdimensionais, a dupla frequentemente se encontra em cenários apocalípticos, enfrentando alienígenas e dilemas morais complexos.
+            </p>
         </div>
     )
 }

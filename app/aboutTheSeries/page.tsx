@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import { Card } from "./components/Card";
+import { StatusSeries } from "./components/StatusSeries";
 
 export default function AboutPage() {
   return (
@@ -10,7 +11,6 @@ export default function AboutPage() {
 
       <div className="relative z-10 container mx-auto p-6 md:p-12">
         
-        {/* Header / Título */}
         <header className="mb-16 border-b border-green-800 pb-6">
           <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-lime-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]">
             PROJECT: RICK AND MORTY
@@ -27,7 +27,6 @@ export default function AboutPage() {
           {/* Coluna da Esquerda: Sinopse e Info (8 colunas) */}
           <div className="lg:col-span-8 space-y-12">
             
-            {/* Seção: Sinopse (Estilo Arquivo de Texto) */}
             <section className="bg-black/50 border-l-4 border-lime-500 p-6 md:p-8 backdrop-blur-sm shadow-[0_0_30px_rgba(0,0,0,0.5)]">
               <h2 className="text-2xl font-bold text-lime-400 mb-4 flex items-center gap-2">
                 <span className="text-cyan-400">{'>'}</span> LOG_ENTRY: SYNOPSIS
@@ -48,17 +47,19 @@ export default function AboutPage() {
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Card Criador 1 */}
-                <div className="group bg-slate-900 border border-green-800 p-5 hover:border-cyan-400 transition-colors duration-300">
-                  <h3 className="text-xl font-bold text-white mb-1">Dan Harmon</h3>
-                  <p className="text-xs text-green-500 uppercase tracking-wider mb-3">Writer / Co-Creator</p>
-                  <p className="text-sm text-gray-400">Conhecido por sua narrativa complexa e meta-humor (ex: Community).</p>
-                </div>
+
+                <Card 
+                  title="Dan Harmon"
+                  voice="Writer / Co-Creator"
+                  moreAboutTheVoice="Conhecido por sua narrativa complexa e meta-humor (ex: Community)."
+                />
                 {/* Card Criador 2 */}
-                <div className="group bg-slate-900 border border-green-800 p-5 hover:border-cyan-400 transition-colors duration-300">
-                  <h3 className="text-xl font-bold text-white mb-1">Justin Roiland</h3>
-                  <p className="text-xs text-green-500 uppercase tracking-wider mb-3">Voice Actor / Co-Creator</p>
-                  <p className="text-sm text-gray-400">A voz original de ambos os protagonistas e o caos criativo da série.</p>
-                </div>
+
+                <Card 
+                  title="Justin Roiland"
+                  voice="Voice Actor / Co-Creator"
+                  moreAboutTheVoice="A voz original de ambos os protagonistas e o caos criativo da série."
+                />
               </div>
             </section>
           </div>
@@ -67,25 +68,7 @@ export default function AboutPage() {
           <div className="lg:col-span-4 space-y-8">
             
             {/* Widget de Estatísticas */}
-            <div className="bg-green-950/20 border border-green-600/30 p-6 rounded-xl relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-lime-500 to-transparent opacity-50"></div>
-              <h3 className="text-green-400 font-bold mb-4 uppercase text-sm tracking-widest">Series Stats</h3>
-              
-              <ul className="space-y-4">
-                <li className="flex justify-between items-center border-b border-green-900 pb-2">
-                  <span className="text-gray-400">Temporadas</span>
-                  <span className="text-2xl font-bold text-cyan-300">7</span>
-                </li>
-                <li className="flex justify-between items-center border-b border-green-900 pb-2">
-                  <span className="text-gray-400">Episódios</span>
-                  <span className="text-2xl font-bold text-cyan-300">71+</span>
-                </li>
-                <li className="flex justify-between items-center pb-2">
-                  <span className="text-gray-400">IMDb Rating</span>
-                  <span className="text-2xl font-bold text-lime-400">9.1</span>
-                </li>
-              </ul>
-            </div>
+            <StatusSeries />
 
             {/* "Tech Stack" da Animação (Fictício/Temático) */}
             <div className="space-y-2">
@@ -100,17 +83,17 @@ export default function AboutPage() {
             {/* CTA para a Galeria */}
             <div className="mt-8 pt-8 border-t border-green-800 text-center">
                 <p className="mb-4 text-sm text-gray-400">Acesso aos arquivos dos personagens:</p>
-                <button className="w-full py-4 bg-lime-600 text-black font-bold uppercase tracking-widest hover:bg-lime-400 hover:shadow-[0_0_20px_#84cc16] transition-all duration-300 clip-path-polygon cursor-pointer">
+                <a href="/photoGallery" className="w-full py-4 px-20 bg-lime-600 text-black font-bold uppercase tracking-widest hover:bg-lime-400 hover:shadow-[0_0_20px_#84cc16] transition-all duration-300 clip-path-polygon cursor-pointer">
                     Acessar Galeria
-                </button>
+                </a>
             </div>
 
           </div>
         </div>
 
         {/* Footer Decorativo */}
-        <footer className="mt-20 border-t border-green-900 pt-6 text-center text-green-800 text-xs">
-          <p>C-137 DIMENSION DATA STREAM © 2025</p>
+        <footer className="mt-20 border-t border-green-900 pt-6 text-center text-white text-xs">
+          <p>Projeto React (Front-End Frameworks)</p>
         </footer>
       </div>
     </div>

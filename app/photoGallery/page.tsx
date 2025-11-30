@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { HeaderGallery } from './components/HeaderGallery';
 
 interface CharacterLocation {
   name: string;
@@ -39,7 +40,6 @@ export default function Page() {
         setLoading(false);
       }
     };
-
     fetchCharacters();
   }, []);
 
@@ -58,14 +58,7 @@ export default function Page() {
       <div className="fixed inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-green-900 via-slate-950 to-black"></div>
       
       <div className="relative z-10 p-6 md:p-10">
-        <header className="mb-16 text-center">
-          <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-lime-400 via-green-300 to-cyan-400 drop-shadow-[0_0_10px_rgba(132,204,22,0.8)] transform -rotate-2">
-            WUBBA LUBBA <br className="md:hidden" /> DUB DUB!
-          </h1>
-          <p className="mt-4 text-cyan-300 tracking-[0.3em] uppercase text-sm md:text-base border-b border-cyan-800 inline-block pb-2">
-            Interdimensional Database v.137
-          </p>
-        </header>
+        <HeaderGallery />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 container mx-auto">
           {characters.map((char) => (
