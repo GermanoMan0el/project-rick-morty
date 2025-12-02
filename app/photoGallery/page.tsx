@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { HeaderGallery } from './components/HeaderGallery';
+import { X } from 'lucide'; // Importando ícone de fechar (se não tiver a lib, troque por texto "X")
 
 interface CharacterLocation {
   name: string;
@@ -27,6 +28,9 @@ interface ApiResponse {
 export default function Page() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  
+  // 1. Estado para controlar qual personagem está aberto no Modal
+  const [selectedChar, setSelectedChar] = useState<Character | null>(null);
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -54,69 +58,107 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-slate-950 font-mono relative overflow-hidden">
-      {/* Background Decorativo (Efeito Espacial/Portal) */}
+
       <div className="fixed inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-green-900 via-slate-950 to-black"></div>
       
       <div className="relative z-10 p-6 md:p-10">
         <HeaderGallery />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 container mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 container mx-auto">
           {characters.map((char) => (
             <div 
               key={char.id} 
-              className="group relative bg-black border-2 border-green-800 hover:border-lime-400 transition-all duration-300 hover:shadow-[0_0_30px_rgba(132,204,22,0.4)]"
+
+              onClick={() => setSelectedChar(char)}
+              className="group relative cursor-pointer bg-black border border-green-900 hover:border-lime-400 transition-all duration-300 hover:shadow-[0_0_20px_rgba(132,204,22,0.4)] rounded-lg overflow-hidden hover:-translate-y-2"
             >
-              {/* Efeito de Glitch/Scanline na imagem */}
-              <div className="relative overflow-hidden border-b-2 border-green-900 group-hover:border-lime-500/50">
+              {/* Imagem */}
+              <div className="aspect-square overflow-hidden relative">
                 <img 
                   src={char.image} 
                   alt={char.name} 
-                  className="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 opacity-90 group-hover:opacity-100"
+                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
-                
-                {/* Overlay de Scanline (linhas horizontais) */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none"></div>
-                
-                {/* Badge de Status "Holográfica" */}
-                <div className={`absolute top-0 right-0 p-2 z-20 font-bold text-xs uppercase tracking-widest border-l-2 border-b-2 
-                  ${char.status === 'Alive' 
-                    ? 'bg-green-900/80 text-green-300 border-green-500' 
-                    : char.status === 'Dead' 
-                      ? 'bg-red-900/80 text-red-300 border-red-500' 
-                      : 'bg-gray-900/80 text-gray-300 border-gray-500'}`}>
-                  {char.status}
-                </div>
+                <div className="absolute inset-0 bg-lime-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-
-              {/* Informações estilo Terminal */}
-              <div className="p-5 space-y-4 relative">
-                <h2 className="text-2xl font-bold text-lime-400 truncate group-hover:text-cyan-300 transition-colors">
+              
+              <div className="p-3 bg-slate-900/90 border-t border-green-800 text-center">
+                 <h2 className="text-sm font-bold text-green-100 truncate group-hover:text-lime-400 transition-colors">
                   {char.name}
                 </h2>
-                
-                <div className="grid grid-cols-2 gap-4 text-xs">
-                  <div className="space-y-1">
-                    <p className="text-green-700 font-bold uppercase">Espécie</p>
-                    <p className="text-green-100">{char.species}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-green-700 font-bold uppercase">Origem</p>
-                    <p className="text-green-100 truncate">{char.origin.name}</p>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-green-900/50">
-                  <p className="text-green-700 font-bold uppercase text-[10px] mb-1">Última Localização Conhecida</p>
-                  <div className="flex items-center text-cyan-400 text-sm">
-                    <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse mr-2"></span>
-                    {char.location.name}
-                  </div>
-                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+\\
+      {selectedChar && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+          
+          <div className="bg-slate-900 border-2 border-lime-500 shadow-[0_0_50px_rgba(132,204,22,0.3)] max-w-3xl w-full rounded-xl overflow-hidden relative flex flex-col md:flex-row">
+            
+            {/* Botão Fechar */}
+            <button 
+              onClick={() => setSelectedChar(null)}
+              className="absolute top-3 right-3 z-20 bg-black/50 hover:bg-red-600 text-green-400 hover:text-white rounded-full py-2 px-4 transition-colors border border-green-500/30 cursor-pointer"
+            >
+              X
+            </button>
+
+            {/* Imagem Grande no Modal */}
+            <div className="w-full md:w-2/5 relative">
+              <img 
+                src={selectedChar.image} 
+                alt={selectedChar.name} 
+                className="w-full h-full object-cover"
+              />
+              <div className={`absolute bottom-4 left-4 px-3 py-1 font-bold text-xs uppercase tracking-widest border shadow-lg rounded
+                  ${selectedChar.status === 'Alive' ? 'bg-green-500 text-black border-green-400' : 
+                    selectedChar.status === 'Dead' ? 'bg-red-600 text-white border-red-400' : 'bg-gray-600 text-white border-gray-400'}`}>
+                  {selectedChar.status}
+              </div>
+            </div>
+
+            {/* Informações Detalhadas */}
+            <div className="w-full md:w-3/5 p-8 flex flex-col justify-center bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black">
+              
+              <h2 className="text-3xl font-black text-white mb-2">{selectedChar.name}</h2>
+              <p className="text-xs text-green-600 uppercase tracking-[0.2em] mb-8 border-b border-green-900 pb-4">
+                Identificação Multiversal #{selectedChar.id}
+              </p>
+
+              <div className="space-y-6">
+                
+                {/* Espécie */}
+                <div className="group">
+                   <p className="text-[10px] text-green-500 uppercase font-bold mb-1">Espécie</p>
+                   <p className="text-lg text-green-100 font-medium pl-3 border-l-2 border-cyan-500">
+                     {selectedChar.species}
+                   </p>
+                </div>
+
+                {/* Localização */}
+                <div className="group">
+                   <p className="text-[10px] text-green-500 uppercase font-bold mb-1">Localização Atual</p>
+                   <p className="text-lg text-lime-300 font-medium pl-3 border-l-2 border-lime-500 animate-pulse">
+                     {selectedChar.location.name}
+                   </p>
+                </div>
+
+                {/* Origem */}
+                <div className="group">
+                   <p className="text-[10px] text-green-500 uppercase font-bold mb-1">Origem</p>
+                   <p className="text-lg text-green-100 font-medium pl-3 border-l-2 border-purple-500">
+                     {selectedChar.origin.name}
+                   </p>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }
